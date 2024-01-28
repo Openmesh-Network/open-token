@@ -20,13 +20,13 @@ https://book.getfoundry.sh/
 ### Build
 
 ```shell
-$ forge build
+forge build
 ```
 
 ### Test
 
 ```shell
-$ forge test
+forge test
 ```
 
 ### Deploy
@@ -35,16 +35,24 @@ $ forge test
 make deploy
 ```
 
+## Local chain
+
+```shell
+anvil
+make local-fund ADDRESS="YOURADDRESSHERE"
+```
+
 ### Analyze
 
 ```shell
 make slither
+make mythril TARGET=Counter.sol
 ```
 
 ### Help
 
 ```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+forge --help
+anvil --help
+cast --help
 ```
