@@ -4,13 +4,13 @@ pragma solidity ^0.8.0;
 import {IERC20} from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
 interface IERC20MintBurnable is IERC20 {
-    /// Mints tokens to a specific account.
-    /// @dev Should be locked behind a permission.
+    /// @notice Mints tokens to a specific account.
     /// @param account The account that will receive the minted tokens.
     /// @param amount The amount of tokens to mint.
+    /// @dev Should be locked behind a permission/restriction.
     function mint(address account, uint256 amount) external;
 
-    /// Burns tokens from your account.
+    /// @notice Burns tokens from your account.
     /// @param amount The amount of tokens to burn.
     function burn(uint256 amount) external;
 }

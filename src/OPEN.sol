@@ -10,13 +10,13 @@ import {IERC20Metadata} from "../lib/openzeppelin-contracts/contracts/token/ERC2
 import {IVotes} from "../lib/openzeppelin-contracts/contracts/governance/utils/IVotes.sol";
 import {IERC5267} from "../lib/openzeppelin-contracts/contracts/interfaces/IERC5267.sol";
 import {IERC6372} from "../lib/openzeppelin-contracts/contracts/interfaces/IERC6372.sol";
-import {IReverseRegistrar} from "../lib/ens-contracts/contracts/reverseRegistrar/IReverseRegistrar.sol";
+import {ClaimReverseENS} from "../lib/ens-reverse-registrar/src/ClaimReverseENS.sol";
 
 import {IERC20MintBurnable} from "./IERC20MintBurnable.sol";
 
-contract OPEN is ERC20Votes, AccessControl, IERC20MintBurnable {
+contract OPEN is ERC20Votes, AccessControl, ClaimReverseENS, IERC20MintBurnable {
     bytes32 public constant MINT_ROLE = keccak256("MINT");
-    uint256 immutable maxSupply;
+    uint256 public immutable maxSupply;
 
     error SurpassMaxSupply();
 
@@ -25,11 +25,10 @@ contract OPEN is ERC20Votes, AccessControl, IERC20MintBurnable {
         string memory _symbol,
         uint256 _maxSupply,
         address _admin,
-        IReverseRegistrar _reverseRegistrar
-    ) ERC20(_name, _symbol) EIP712(_name, "1") {
+        address _reverseRegistrar
+    ) ERC20(_name, _symbol) EIP712(_name, "1") ClaimReverseENS(_reverseRegistrar, _admin) {
         maxSupply = _maxSupply;
         _grantRole(DEFAULT_ADMIN_ROLE, _admin);
-        _reverseRegistrar.claim(_admin);
     }
 
     /// @inheritdoc AccessControl

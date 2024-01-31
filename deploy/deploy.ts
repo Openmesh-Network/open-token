@@ -1,6 +1,7 @@
 import { Ether } from "../web3webdeploy/lib/etherUnits";
 import { Address, DeployInfo, Deployer } from "../web3webdeploy/types";
-import { zeroAddress } from "viem";
+import { deploy as openmeshAdminDeploy } from "../lib/openmesh-admin/deploy/deploy";
+import { deploy as ensReverseRegistrarDeploy } from "../lib/ens-reverse-registrar/deploy/deploy";
 
 export interface OpenTokenDeploymentSettings
   extends Omit<DeployInfo, "contract" | "args"> {
@@ -22,8 +23,10 @@ export async function deploy(
   const tokenName = settings?.tokenName ?? "Openmesh";
   const tokenTicker = settings?.tokenTicker ?? "OPEN";
   const maxSupply = settings?.maxSupply ?? Ether(1_000_000_000);
-  const admin = settings?.admin ?? zeroAddress;
-  const ensReverseRegistrar = settings?.ensReverseRegistrar ?? zeroAddress;
+  const admin = settings?.admin ?? (await openmeshAdminDeploy(deployer));
+  const ensReverseRegistrar =
+    settings?.ensReverseRegistrar ??
+    (await ensReverseRegistrarDeploy(deployer));
 
   const openToken = await deployer.deploy({
     contract: "OPEN",
