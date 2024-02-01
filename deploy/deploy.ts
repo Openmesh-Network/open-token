@@ -23,10 +23,13 @@ export async function deploy(
   const tokenName = settings?.tokenName ?? "Openmesh";
   const tokenTicker = settings?.tokenTicker ?? "OPEN";
   const maxSupply = settings?.maxSupply ?? Ether(1_000_000_000);
-  const admin = settings?.admin ?? (await openmeshAdminDeploy(deployer));
-  const ensReverseRegistrar =
-    settings?.ensReverseRegistrar ??
-    (await ensReverseRegistrarDeploy(deployer));
+  deployer.startContext("lib/openmesh-admin");
+  const admin = (await openmeshAdminDeploy(deployer)).admin;
+  deployer.finishContext();
+  deployer.startContext("lib/ens-reverse-registrar");
+  const ensReverseRegistrar = (await ensReverseRegistrarDeploy(deployer))
+    .reverseRegistrar;
+  deployer.finishContext();
 
   const openToken = await deployer.deploy({
     contract: "OPEN",
