@@ -10,22 +10,18 @@ import {IERC20Metadata} from "../lib/openzeppelin-contracts/contracts/token/ERC2
 import {IVotes} from "../lib/openzeppelin-contracts/contracts/governance/utils/IVotes.sol";
 import {IERC5267} from "../lib/openzeppelin-contracts/contracts/interfaces/IERC5267.sol";
 import {IERC6372} from "../lib/openzeppelin-contracts/contracts/interfaces/IERC6372.sol";
-import {ENSReverseClaimable} from "../lib/ens-reverse-claimable/src/ENSReverseClaimable.sol";
+import {OpenmeshENSReverseClaimable} from "../lib/openmesh-admin/src/OpenmeshENSReverseClaimable.sol";
 
 import {IERC20MintBurnable} from "./IERC20MintBurnable.sol";
 
-contract OPEN is ERC20Votes, AccessControl, ENSReverseClaimable, IERC20MintBurnable {
+contract OPEN is ERC20Votes, AccessControl, OpenmeshENSReverseClaimable, IERC20MintBurnable {
     bytes32 public constant MINT_ROLE = keccak256("MINT");
-    uint256 public immutable maxSupply;
+    uint256 public constant maxSupply = 1000000000 ether;
 
     error SurpassMaxSupply();
 
-    constructor(string memory _name, string memory _symbol, uint256 _maxSupply, address _admin)
-        ERC20(_name, _symbol)
-        EIP712(_name, "1")
-    {
-        maxSupply = _maxSupply;
-        _grantRole(DEFAULT_ADMIN_ROLE, _admin);
+    constructor() ERC20("Openmesh", "OPEN") EIP712("Openmesh", "1") {
+        _grantRole(DEFAULT_ADMIN_ROLE, OPENMESH_ADMIN);
     }
 
     /// @inheritdoc AccessControl
