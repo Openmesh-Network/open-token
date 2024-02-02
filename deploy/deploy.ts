@@ -1,7 +1,5 @@
 import { Ether } from "../web3webdeploy/lib/etherUnits";
 import { Address, DeployInfo, Deployer } from "../web3webdeploy/types";
-import { deploy as openmeshAdminDeploy } from "../lib/openmesh-admin/deploy/deploy";
-import { deploy as ensReverseRegistrarDeploy } from "../lib/ens-reverse-registrar/deploy/deploy";
 
 export interface OpenTokenDeploymentSettings
   extends Omit<DeployInfo, "contract" | "args"> {
@@ -9,7 +7,6 @@ export interface OpenTokenDeploymentSettings
   tokenTicker?: string;
   maxSupply?: bigint;
   admin: Address;
-  ensReverseRegistrar: Address;
 }
 
 export interface OpenTokenDeployment {
@@ -23,18 +20,11 @@ export async function deploy(
   const tokenName = settings?.tokenName ?? "Openmesh";
   const tokenTicker = settings?.tokenTicker ?? "OPEN";
   const maxSupply = settings?.maxSupply ?? Ether(1_000_000_000);
-  deployer.startContext("lib/openmesh-admin");
-  const admin = settings?.admin ?? (await openmeshAdminDeploy(deployer)).admin;
-  deployer.finishContext();
-  deployer.startContext("lib/ens-reverse-registrar");
-  const ensReverseRegistrar =
-    settings?.ensReverseRegistrar ??
-    (await ensReverseRegistrarDeploy(deployer)).reverseRegistrar;
-  deployer.finishContext();
+  const admin = settings?.admin ?? "0x2309762aAcA0a8F689463a42c0A6A84BE3A7ea51";
 
   const openToken = await deployer.deploy({
     contract: "OPEN",
-    args: [tokenName, tokenTicker, maxSupply, admin, ensReverseRegistrar],
+    args: [tokenName, tokenTicker, maxSupply, admin],
     ...settings,
   });
 
