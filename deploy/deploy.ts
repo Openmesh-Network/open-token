@@ -1,7 +1,10 @@
-import { Address, DeployInfo, Deployer } from "../web3webdeploy/types";
+import { Address, Deployer } from "../web3webdeploy/types";
+import { DeployOPENSettings, deployOPEN } from "./erc20/OPEN";
 
-export interface OpenTokenDeploymentSettings
-  extends Omit<DeployInfo, "contract" | "args"> {}
+export interface OpenTokenDeploymentSettings {
+  counterSettings: DeployOPENSettings;
+  forceRedeploy?: boolean;
+}
 
 export interface OpenTokenDeployment {
   openToken: Address;
@@ -11,10 +14,11 @@ export async function deploy(
   deployer: Deployer,
   settings?: OpenTokenDeploymentSettings
 ): Promise<OpenTokenDeployment> {
-  const openToken = await deployer.deploy({
-    contract: "OPEN",
-    ...settings,
-  });
+  if (settings?.forceRedeploy !== undefined && !settings.forceRedeploy) {
+    return await deployer.loadDeployment({ deploymentName: "latest.json" });
+  }
+
+  const openToken = await deployOPEN(deployer, settings?.counterSettings ?? {});
 
   const deployment = {
     openToken: openToken,
