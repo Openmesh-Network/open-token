@@ -16,7 +16,12 @@ export async function deploy(
     ...settings,
   });
 
-  return {
+  const deployment = {
     openToken: openToken,
   };
+  await deployer.saveDeployment({
+    deploymentName: "latest.json",
+    deployment: deployment,
+  });
+  return deployment;
 }
