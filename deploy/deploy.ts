@@ -2,7 +2,7 @@ import { Address, Deployer } from "../web3webdeploy/types";
 import { DeployOPENSettings, deployOPEN } from "./erc20/OPEN";
 
 export interface OpenTokenDeploymentSettings {
-  counterSettings: DeployOPENSettings;
+  openSettings: DeployOPENSettings;
   forceRedeploy?: boolean;
 }
 
@@ -18,7 +18,7 @@ export async function deploy(
     return await deployer.loadDeployment({ deploymentName: "latest.json" });
   }
 
-  const openToken = await deployOPEN(deployer, settings?.counterSettings ?? {});
+  const openToken = await deployOPEN(deployer, settings?.openSettings ?? {});
 
   const deployment = {
     openToken: openToken,
