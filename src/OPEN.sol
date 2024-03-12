@@ -18,10 +18,12 @@ contract OPEN is ERC20Votes, AccessControl, OpenmeshENSReverseClaimable, IERC20M
     bytes32 public constant MINT_ROLE = keccak256("MINT");
     uint256 public constant maxSupply = 1000000000 ether;
 
-    error SurpassMaxSupply();
-
     constructor() ERC20("Openmesh", "OPEN") EIP712("Openmesh", "1") {
         _grantRole(DEFAULT_ADMIN_ROLE, OPENMESH_ADMIN);
+    }
+
+    function _maxSupply() internal pure override returns (uint256) {
+        return maxSupply;
     }
 
     /// @inheritdoc AccessControl
@@ -34,10 +36,6 @@ contract OPEN is ERC20Votes, AccessControl, OpenmeshENSReverseClaimable, IERC20M
 
     /// @inheritdoc IERC20MintBurnable
     function mint(address account, uint256 amount) external onlyRole(MINT_ROLE) {
-        if (totalSupply() + amount > maxSupply) {
-            revert SurpassMaxSupply();
-        }
-
         _mint(account, amount);
     }
 
