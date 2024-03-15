@@ -1,5 +1,5 @@
 import { Address, Deployer } from "../web3webdeploy/types";
-import { DeployOPENSettings, deployOPEN } from "./erc20/OPEN";
+import { DeployOPENSettings, deployOPEN } from "./internal/OPEN";
 
 export interface OpenTokenDeploymentSettings {
   openSettings: DeployOPENSettings;
