@@ -15,7 +15,12 @@ export async function deploy(
   settings?: OpenTokenDeploymentSettings
 ): Promise<OpenTokenDeployment> {
   if (settings?.forceRedeploy !== undefined && !settings.forceRedeploy) {
-    return await deployer.loadDeployment({ deploymentName: "latest.json" });
+    const existingDeployment = await deployer.loadDeployment({
+      deploymentName: "latest.json",
+    });
+    if (existingDeployment !== undefined) {
+      return existingDeployment;
+    }
   }
 
   const openToken = await deployOPEN(deployer, settings?.openSettings ?? {});
