@@ -25,7 +25,7 @@ export async function deploy(
 
   const openToken = await deployOPEN(deployer, settings?.openSettings ?? {});
 
-  const deployment = {
+  const deployment : OpenTokenDeployment = {
     openToken: openToken,
   };
   await deployer.saveDeployment({
