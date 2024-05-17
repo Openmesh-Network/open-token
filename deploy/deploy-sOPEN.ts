@@ -39,7 +39,7 @@ export async function deploy(
         functionName: "grantRole",
         args: [
           deployer.viem.keccak256(deployer.viem.toBytes("MINT")),
-          "0x24496D746Fd003397790E41d0d1Ce61F4F7fd61f",
+          "0xD38ACa555ED2BCcBc3a619bB22f0F6b648FbCe48", // Openmesh multisig (Ethereum)
         ],
       }),
     ],
