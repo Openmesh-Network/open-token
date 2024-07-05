@@ -11,3 +11,6 @@
 [submodule "lib/openmesh-admin"]
 	path = lib/openmesh-admin
 	url = https://github.com/Openmesh-Network/openmesh-admin
+[submodule "lib/vesting"]
+	path = lib/vesting
+	url = https://github.com/Plopmenz/vesting
