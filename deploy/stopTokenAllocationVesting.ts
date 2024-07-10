@@ -6,18 +6,14 @@ export async function deploy(deployer: Deployer): Promise<void> {
   const vestings: {
     amount: bigint;
     start: number;
-    duration: number;
     beneficiary: Address;
-    cliff: number;
     stopAt: number;
   }[] = [
     {
       amount: deployer.viem.parseEther("1000"),
       start: Math.round(Date.UTC(2024, 7 - 1, 1) / 1000),
-      duration: 4 * 365 * 24 * 60 * 60,
       beneficiary: "0xaF7E68bCb2Fc7295492A00177f14F59B92814e70",
       stopAt: Math.round(Date.UTC(2024, 7 - 1, 11) / 1000),
-      cliff: 182 * 24 * 60 * 60,
     },
   ];
 
@@ -40,9 +36,9 @@ export async function deploy(deployer: Deployer): Promise<void> {
               args: [
                 vesting.amount,
                 BigInt(vesting.start),
-                BigInt(vesting.duration),
+                BigInt(4 * 365 * 24 * 60 * 60),
                 vesting.beneficiary,
-                BigInt(vesting.cliff),
+                BigInt(vesting.start + 182 * 24 * 60 * 60),
                 BigInt(vesting.stopAt),
               ],
             }),
