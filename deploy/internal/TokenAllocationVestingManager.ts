@@ -14,7 +14,7 @@ export async function deployTokenAllocationVestingManager(
     .deploy({
       id: "TokenAllocationVestingManager",
       contract:
-        "JITSingleBeneficiaryLinearERC20TransferVestingStoppableManager",
+        "JITSingleBeneficiaryLinearCliffERC20TransferVestingStoppableManager",
       args: [sOPENContract.address, OpenmeshAdminContract.address],
       salt: "TokenAllocation",
       ...settings,

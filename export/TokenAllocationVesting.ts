@@ -1,4 +1,5 @@
 export const TokenAllocationVestingContract = {
+  address: "0x6e95744b162E21A1462b0Ed7961ED2cA5B8D6190",
   abi: [
     { type: "constructor", inputs: [], stateMutability: "nonpayable" },
     {
@@ -17,6 +18,13 @@ export const TokenAllocationVestingContract = {
     },
     {
       type: "function",
+      name: "cliff",
+      inputs: [],
+      outputs: [{ name: "", type: "uint128", internalType: "uint128" }],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
       name: "duration",
       inputs: [],
       outputs: [{ name: "", type: "uint64", internalType: "uint64" }],
@@ -31,6 +39,7 @@ export const TokenAllocationVestingContract = {
         { name: "_start", type: "uint64", internalType: "uint64" },
         { name: "_duration", type: "uint64", internalType: "uint64" },
         { name: "_beneficiary", type: "address", internalType: "address" },
+        { name: "_cliff", type: "uint64", internalType: "uint64" },
         { name: "_manager", type: "address", internalType: "address" },
       ],
       outputs: [],
@@ -74,7 +83,14 @@ export const TokenAllocationVestingContract = {
     {
       type: "function",
       name: "stop",
-      inputs: [{ name: "newDuration", type: "uint64", internalType: "uint64" }],
+      inputs: [],
+      outputs: [{ name: "", type: "uint64", internalType: "uint64" }],
+      stateMutability: "view",
+    },
+    {
+      type: "function",
+      name: "stopAt",
+      inputs: [{ name: "timestamp", type: "uint64", internalType: "uint64" }],
       outputs: [],
       stateMutability: "nonpayable",
     },
@@ -94,6 +110,19 @@ export const TokenAllocationVestingContract = {
           type: "address",
           indexed: true,
           internalType: "address",
+        },
+      ],
+      anonymous: false,
+    },
+    {
+      type: "event",
+      name: "CliffCreated",
+      inputs: [
+        {
+          name: "cliff",
+          type: "uint64",
+          indexed: false,
+          internalType: "uint64",
         },
       ],
       anonymous: false,
@@ -170,10 +199,10 @@ export const TokenAllocationVestingContract = {
     },
     {
       type: "event",
-      name: "Stop",
+      name: "StopAt",
       inputs: [
         {
-          name: "newDuration",
+          name: "stop",
           type: "uint64",
           indexed: false,
           internalType: "uint64",
@@ -215,13 +244,6 @@ export const TokenAllocationVestingContract = {
         { name: "currentTime", type: "uint64", internalType: "uint64" },
       ],
     },
-    {
-      type: "error",
-      name: "StopMustDecreaseDuration",
-      inputs: [
-        { name: "newDuration", type: "uint64", internalType: "uint64" },
-        { name: "oldDuration", type: "uint64", internalType: "uint64" },
-      ],
-    },
+    { type: "error", name: "Unimplemented", inputs: [] },
   ],
 } as const;

@@ -1,5 +1,5 @@
 export const TokenAllocationVestingManagerContract = {
-  address: "0x15C537D9CD6E8D3333774c45aE1f4e70318410c6",
+  address: "0x063E8857cF0b9D2D1d96bd9D2250367cAa68F519",
   abi: [
     {
       type: "constructor",
@@ -21,6 +21,7 @@ export const TokenAllocationVestingManagerContract = {
         { name: "_start", type: "uint64", internalType: "uint64" },
         { name: "_duration", type: "uint64", internalType: "uint64" },
         { name: "_beneficiary", type: "address", internalType: "address" },
+        { name: "_cliff", type: "uint64", internalType: "uint64" },
       ],
       outputs: [{ name: "vesting", type: "address", internalType: "address" }],
       stateMutability: "nonpayable",
@@ -33,6 +34,7 @@ export const TokenAllocationVestingManagerContract = {
         { name: "_start", type: "uint64", internalType: "uint64" },
         { name: "_duration", type: "uint64", internalType: "uint64" },
         { name: "_beneficiary", type: "address", internalType: "address" },
+        { name: "_cliff", type: "uint64", internalType: "uint64" },
       ],
       outputs: [{ name: "", type: "address", internalType: "address" }],
       stateMutability: "view",
@@ -46,7 +48,7 @@ export const TokenAllocationVestingManagerContract = {
           name: "",
           type: "address",
           internalType:
-            "contract SingleBeneficiaryLinearERC20TransferVestingStoppableProxy",
+            "contract SingleBeneficiaryLinearCliffERC20TransferVestingStoppableProxy",
         },
       ],
       stateMutability: "view",
@@ -66,6 +68,7 @@ export const TokenAllocationVestingManagerContract = {
         { name: "_start", type: "uint64", internalType: "uint64" },
         { name: "_duration", type: "uint64", internalType: "uint64" },
         { name: "_beneficiary", type: "address", internalType: "address" },
+        { name: "_cliff", type: "uint64", internalType: "uint64" },
       ],
       outputs: [{ name: "released", type: "uint256", internalType: "uint256" }],
       stateMutability: "nonpayable",
@@ -79,13 +82,14 @@ export const TokenAllocationVestingManagerContract = {
     },
     {
       type: "function",
-      name: "stop",
+      name: "stopAt",
       inputs: [
         { name: "_amount", type: "uint128", internalType: "uint128" },
         { name: "_start", type: "uint64", internalType: "uint64" },
         { name: "_duration", type: "uint64", internalType: "uint64" },
         { name: "_beneficiary", type: "address", internalType: "address" },
-        { name: "_newDuration", type: "uint64", internalType: "uint64" },
+        { name: "_cliff", type: "uint64", internalType: "uint64" },
+        { name: "_stopAt", type: "uint64", internalType: "uint64" },
       ],
       outputs: [],
       stateMutability: "nonpayable",
