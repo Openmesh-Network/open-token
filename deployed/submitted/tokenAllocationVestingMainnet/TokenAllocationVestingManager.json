@@ -15,8 +15,8 @@
   "from": "0x519ce4C129a981B2CBB4C3990B1391dA24E8EbF3",
   "transactionSettings": {
     "chainId": 1,
-    "nonce": "60",
-    "baseFee": "14687460783",
+    "nonce": "61",
+    "baseFee": "7000000000",
     "priorityFee": "1000000000"
   },
   "salt": "\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000TokenAllocation",
@@ -314,7 +314,7 @@
   },
   "source": "/home/plopmenz/open-token/lib/vesting",
   "submitted": {
-    "transactionHash": "0x3b6bc03900b8846e22dfabda29fcea9709816d93ab57b56db8b998713551e338",
-    "date": "2024-10-10T14:01:06.017Z"
+    "transactionHash": "0xc4939a50be544ea1305ef6be5e4f5fcf6d4003181bc5bda2d52bd5152fbc543a",
+    "date": "2024-10-10T19:46:08.086Z"
   }
 }
